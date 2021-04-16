@@ -29,7 +29,7 @@ spring:
       enabled: always
 # 日志输出地址
 logging:
-  path: logs\MedicalKG
+  path: QSlogs\MedicalKG
 #  level:
 #    root: error
 #    cn.zyzpp: info
