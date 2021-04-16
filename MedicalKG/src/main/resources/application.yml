@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://172.18.56.100:3306/MedicalQS?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123456
+  jpa:
+    show-sql: false #控制台是否显示sql语句
+    hibernate:
+      ddl-auto: update #更新创建表结构
+    properties:
+      hibernate:
+        format_sql: false
+        dialect: com.lh.config.MysqlConfig
+#其他数据库
+  data:
+    #neo4j数据库
+    neo4j:
+      uri: http://172.18.56.100:7474
+      username: neo4j
+      password: password
+#    #elasticsearch检索
+#    elasticsearch:
+#      cluster-name: my-application
+#      cluster-nodes: 123.206.46.157:9300
+  #开启支持ANSI格式输出日志，如果你的控制台可以支持ANSI，那么输出结果会高亮显示
+  output:
+    ansi:
+      enabled: always
+# 日志输出地址
+logging:
+  path: logs\MedicalKG
+#  level:
+#    root: error
+#    cn.zyzpp: info
+
