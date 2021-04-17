@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * 重构：疾病的实体  用来保存爬取的数据 子表保存分词
+ * 疾病的实体  用来保存爬取的数据 子表保存分词
  */
 @Data
 @Entity

@@ -1,11 +1,9 @@
 package com.lh.repository.medical.node;
 
 import com.lh.entity.medical.Medical;
-import com.lh.entity.medical.Msymptom;
 import com.lh.entity.medical.node.MedicalNode;
 import com.lh.entity.medical.node.MedicalRelation;
 import com.lh.repository.medical.MedicalRepository;
-import com.lh.repository.medical.MsymptomRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -30,8 +28,6 @@ public class MedicalNodeRepositoryTest {
     MedicalRelationRepository medicalRelationRepository;
     @Autowired
     MedicalRepository medicalRepository;
-    @Autowired
-    MsymptomRepository msymptomRepository;
 
     //节点直接的关系
     final String intro = "简介";
@@ -135,70 +131,5 @@ public class MedicalNodeRepositoryTest {
             medicalRelationRepository.save(new MedicalRelation(node7,node77, baohan));
         }
     }
-
-    //@Test2
-    public void saveSymptom(){
-        int num = 0;//当前第几页
-        int size = 100;//每页100条
-        Sort sort = new Sort(Sort.Direction.DESC,"id");
-        Pageable pageable = new PageRequest(num++,size,sort);
-        Page<Msymptom> msymptomPage = msymptomRepository.findAll(pageable);
-        List<Msymptom> content = msymptomPage.getContent();
-        for (Msymptom msymptom : content){
-            saveSymNeo4j(msymptom);
-        }
-        //如果还有下一页
-        while (msymptomPage.hasNext()){
-            pageable = new PageRequest(num++,size,sort);
-            msymptomPage = msymptomRepository.findAll(pageable);
-            for (Msymptom msymptom : msymptomPage.getContent()){
-                saveSymNeo4j(msymptom);
-            }
-        }
-        logger.info("保存到neo4j完成");
-    }
-
-    private void saveSymNeo4j(Msymptom msymptom) {
-        //保存主节点
-        MedicalNode node = new MedicalNode(msymptom.getName(),msymptom.getPart().toString()+msymptom.getFamily());
-        node.setMajor(true);//设为主节点
-        medicalNodeRepository.save(node);
-        //保存子节点们
-        MedicalNode node1 = new MedicalNode(intro,msymptom.getIntro());
-        medicalNodeRepository.save(node1);
-        MedicalNode node2 = new MedicalNode(cause,msymptom.getCause());
-        medicalNodeRepository.save(node2);
-        MedicalNode node3 = new MedicalNode(diagnose,msymptom.getDiagnose());
-        medicalNodeRepository.save(node3);
-        MedicalNode node4 = new MedicalNode(examine,msymptom.getExamine());
-        medicalNodeRepository.save(node4);
-        //保存主节点与子节点的关系
-        medicalRelationRepository.save(new MedicalRelation(node,node1, intro));
-        medicalRelationRepository.save(new MedicalRelation(node,node2, cause));
-        medicalRelationRepository.save(new MedicalRelation(node,node3, diagnose));
-        medicalRelationRepository.save(new MedicalRelation(node,node4, examine));
-        //保存子节点的子节点
-        for (String s : msymptom.getIntro_list()){
-            MedicalNode node11 = new MedicalNode(s,s);
-            medicalNodeRepository.save(node11);//保存子子节点
-            medicalRelationRepository.save(new MedicalRelation(node1,node11, baohan));//保存子子关系
-        }
-        for (String s : msymptom.getCause_list()){
-            MedicalNode node22 = new MedicalNode(s,s);
-            medicalNodeRepository.save(node22);
-            medicalRelationRepository.save(new MedicalRelation(node2,node22, baohan));
-        }
-        for (String s : msymptom.getDiagnose_list()){
-            MedicalNode node33 = new MedicalNode(s,s);
-            medicalNodeRepository.save(node33);
-            medicalRelationRepository.save(new MedicalRelation(node3,node33, baohan));
-        }
-        for (String s : msymptom.getExamine_list()){
-            MedicalNode node44 = new MedicalNode(s,s);
-            medicalNodeRepository.save(node44);
-            medicalRelationRepository.save(new MedicalRelation(node4,node44, baohan));
-        }
-    }
-
 
 }
