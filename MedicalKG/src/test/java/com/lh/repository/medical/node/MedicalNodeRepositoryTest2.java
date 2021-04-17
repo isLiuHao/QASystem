@@ -9,17 +9,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MedicalNodeRepositoryTest {
+public class MedicalNodeRepositoryTest2 {
     @Autowired
     MedicalNodeRepository medicalNodeRepository;
     @Autowired
@@ -40,33 +37,10 @@ public class MedicalNodeRepositoryTest {
 
     @Test
     public void test(){
-        int num = 0;//当前第几页
-        int size = 1000;//每页1000条
-        boolean s = false;
-        Sort sort = new Sort(Sort.Direction.DESC,"id");//降序
-        Pageable pageable = new PageRequest(num++,size,sort);
-        Page<Medical> medicalPage = medicalRepository.findAll(pageable);
-        List<Medical> content = medicalPage.getContent();
-        //先保存第一页
-        log.warn("保存第"+num+"页到neo4j数据库（每页1000条）");
-        int i=1;
-        for (Medical medical : content){
-            log.warn("保存第"+num+"页,第"+i+"条，到neo4j数据库（每页1000条）");
-            saveNeo4j(medical);
-            i++;
-        }
-        //如果还有下一页
-        while (medicalPage.hasNext()){
-            pageable = new PageRequest(num++,size,sort);
-            medicalPage = medicalRepository.findAll(pageable);
-            int j=1;
-            for (Medical medical : medicalPage.getContent()){
-                log.warn("保存第"+num+"页,第"+j+"条，到neo4j数据库（每页1000条）");
-                saveNeo4j(medical);
-                j++;
-            }
-        }
-        log.warn("保存到neo4j完成，共"+num+"页数据");
+        Medical medical = medicalRepository.findByName("风疹");
+        System.out.println(medical);
+        //saveNeo4j(medical);
+
     }
 
     private void saveNeo4j(Medical medical) {

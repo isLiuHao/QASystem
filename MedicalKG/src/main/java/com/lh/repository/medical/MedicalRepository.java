@@ -15,7 +15,8 @@ public interface MedicalRepository extends JpaRepository<Medical,Long> {
 
     boolean existsMedicalByName(String name);
 
-    Medical findAllByName(String name);
+    //根据名称查询
+    Medical findByName(String name);
 
 
 }
