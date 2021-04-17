@@ -36,11 +36,13 @@ public class MedicalNodeRepositoryTest2 {
     final String examine = "检查";
 
     @Test
-    public void test(){
+    public void saveKG(){
         Medical medical = medicalRepository.findByName("风疹");
-        System.out.println(medical);
-        //saveNeo4j(medical);
-
+        saveNeo4j(medical);
+    }
+    @Test
+    public void searchKG(){
+        System.out.println();
     }
 
     private void saveNeo4j(Medical medical) {
