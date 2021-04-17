@@ -30,7 +30,7 @@ spring:
 # 日志输出地址
 logging:
   path: QSlogs\MedicalKG
-#  level:
-#    root: error
-#    cn.zyzpp: info
+  level:
+    root: warn
+    com.lh: info
 

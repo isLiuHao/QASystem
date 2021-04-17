@@ -6,7 +6,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
 //neo4j节点
 @Data
-@NodeEntity(label = "medical")
+@NodeEntity(label = "medical")//节点类型
 public class MedicalNode {
     @GraphId
     private Long id;

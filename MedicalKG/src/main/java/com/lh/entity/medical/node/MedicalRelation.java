@@ -3,7 +3,7 @@ import lombok.Data;
 import org.neo4j.ogm.annotation.*;
 //neo4j节点关系
 @Data
-@RelationshipEntity(type = "medicalRelation")
+@RelationshipEntity(type = "medicalRelation")//节点类型
 public class MedicalRelation {
     @GraphId
     private Long id;

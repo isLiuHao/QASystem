@@ -16,10 +16,10 @@ public class Medical {
     private Long id;//Id
     @Column(name = "name",unique = true)
     private String name;//病名
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @OrderColumn(name="position")
     private List<String> part;//部位
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @OrderColumn(name="position")
     private List<String> family;//科室
 
@@ -38,22 +38,22 @@ public class Medical {
     @Column(columnDefinition="TEXT")
     private String symptom;//症状
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @OrderColumn(name="position")
     private List<String> intro_list;
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @OrderColumn(name="position")
     private List<String> cause_list;
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @OrderColumn(name="position")
     private List<String> diagnose_list;
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @OrderColumn(name="position")
     private List<String> cure_list;
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @OrderColumn(name="position")
     private List<String> prevent_list;
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @OrderColumn(name="position")
     private List<String> complication_list;//并发症词集合
     /**
