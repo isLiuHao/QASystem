@@ -55,24 +55,19 @@ public class MedicalNodeRepositoryTest {
         List<Medical> content = medicalPage.getContent();
         //先保存第一页
         for (Medical medical : content){
-//            saveNeo4j(medical);
+            logger.info("保存第"+num+"页到neo4j数据库（每页100条）");
+            saveNeo4j(medical);
         }
         //如果还有下一页
         while (medicalPage.hasNext()){
             pageable = new PageRequest(num++,size,sort);
             medicalPage = medicalRepository.findAll(pageable);
+            logger.info("保存第"+num+"页到neo4j数据库（每页100条）");
             for (Medical medical : medicalPage.getContent()){
-                if (s==false&&"肛管直肠周围脓肿".equals(medical.getName())){
-                    s = true;
-                    logger.info(medical.getName());
-                }
-                if (s){
-                    logger.info("开始保存");
-                    saveNeo4j(medical);
-                }
+                saveNeo4j(medical);
             }
         }
-        logger.info("保存到neo4j完成");
+        logger.info("保存到neo4j完成，共"+num+"页数据");
     }
 
     private void saveNeo4j(Medical medical) {
