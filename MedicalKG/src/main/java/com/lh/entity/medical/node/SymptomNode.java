@@ -7,8 +7,8 @@ import org.neo4j.ogm.annotation.Property;
 
 //neo4j节点
 @Data
-@NodeEntity(label = "other")//副节点
-public class MedicalNode2 {
+@NodeEntity(label = "symptom")//症状节点
+public class SymptomNode {
     @GraphId
     private Long id;
     @Property(name = "name")
@@ -16,12 +16,12 @@ public class MedicalNode2 {
     @Property(name = "intro")
     private String intro;//节点介绍
 
-    public MedicalNode2() {}
+    public SymptomNode() {}
 
-    public MedicalNode2(String name, String intro) {
+    public SymptomNode(String name) {
         this.id = -1l;
         this.name = name;
-        this.intro = intro;
+        this.intro = "症状";
     }
 
 }
