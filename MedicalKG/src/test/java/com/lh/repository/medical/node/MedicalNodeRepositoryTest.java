@@ -53,9 +53,10 @@ public class MedicalNodeRepositoryTest {
     }
     @Test
     public void searchKG(){
-        List<SymptomMedicalRelation> lists=symptomMRelationR.findSymptomMedicalRelationsByStartNode("流行性感冒");
+        MedicalNode medicalNode = medicalNodeR.findByName("流行性感冒");
+        List<SymptomMedicalRelation> lists=symptomMRelationR.findSymptomMedicalRelationsByStartNode(medicalNode);
         for(SymptomMedicalRelation list:lists){
-            System.out.println(list);
+            System.out.println(list.getRelation());
         }
     }
 
@@ -64,7 +65,6 @@ public class MedicalNodeRepositoryTest {
         MedicalNode medicalNode = new MedicalNode(medical.getName(),disease);
         medicalNodeR.save(medicalNode);
         //保存子节点和关系
-        List<SymptomMedicalRelation> symptomlists=new ArrayList<>();
         for (String s : medical.getSymptom_list()){
             SymptomNode introNode = new SymptomNode(s);
             symptomNodeR.save(introNode);//保存子节点

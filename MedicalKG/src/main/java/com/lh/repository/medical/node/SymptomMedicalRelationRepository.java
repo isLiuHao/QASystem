@@ -1,5 +1,6 @@
 package com.lh.repository.medical.node;
 
+import com.lh.entity.medical.node.MedicalNode;
 import com.lh.entity.medical.node.SymptomMedicalRelation;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
@@ -14,6 +15,7 @@ public interface SymptomMedicalRelationRepository extends GraphRepository<Sympto
     List<SymptomMedicalRelation> findSymptomMedicalRelationsByEndNode(String name);
 
     //通过Medical查找关系
-    List<SymptomMedicalRelation> findSymptomMedicalRelationsByStartNode(String name);
+    List<SymptomMedicalRelation> findSymptomMedicalRelationsByStartNode(MedicalNode medicalNode);
+
 
 }
