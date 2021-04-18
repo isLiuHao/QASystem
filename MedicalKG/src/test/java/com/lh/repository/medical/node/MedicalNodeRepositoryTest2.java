@@ -2,6 +2,8 @@ package com.lh.repository.medical.node;
 
 import com.lh.entity.medical.Medical;
 import com.lh.entity.medical.node.MedicalNode;
+import com.lh.entity.medical.node.MedicalNode2;
+import com.lh.entity.medical.node.MedicalNodeRelation;
 import com.lh.entity.medical.node.MedicalRelation;
 import com.lh.repository.medical.MedicalRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +20,11 @@ import java.util.List;
 @SpringBootTest
 public class MedicalNodeRepositoryTest2 {
     @Autowired
-    MedicalNodeRepository medicalNodeRepository;
+    MedicalNodeRepository medicalNodeR;//主节点
     @Autowired
-    MedicalRelationRepository medicalRelationRepository;
+    MedicalNodeRepository2 medicalNodeR2;//副节点
+    @Autowired
+    MedicalNodeRelationRepository medicalRelationR;
     @Autowired
     MedicalRepository medicalRepository;
 
@@ -37,8 +41,10 @@ public class MedicalNodeRepositoryTest2 {
 
     @Test
     public void saveKG(){
-        Medical medical = medicalRepository.findByName("风疹");
+        Medical medical = medicalRepository.findByName("流行性感冒");
+        Medical medical1 = medicalRepository.findByName("流行性腮腺炎");
         saveNeo4j(medical);
+        saveNeo4j(medical1);
     }
     @Test
     public void searchKG(){
@@ -48,66 +54,43 @@ public class MedicalNodeRepositoryTest2 {
     private void saveNeo4j(Medical medical) {
         //保存主节点
         MedicalNode node = new MedicalNode(medical.getName(),medical.getPart().toString()+medical.getFamily());
-        node.setMajor(true);//设为主节点
-        medicalNodeRepository.save(node);
-        //保存子节点们
-        MedicalNode node1 = new MedicalNode(intro,medical.getIntro());
-        medicalNodeRepository.save(node1);
-        MedicalNode node2 = new MedicalNode(cause,medical.getCause());
-        medicalNodeRepository.save(node2);
-        MedicalNode node3 = new MedicalNode(diagnose,medical.getDiagnose());
-        medicalNodeRepository.save(node3);
-        MedicalNode node4 = new MedicalNode(cure,medical.getCure());
-        medicalNodeRepository.save(node4);
-        MedicalNode node5 = new MedicalNode(prevent,medical.getPrevent());
-        medicalNodeRepository.save(node5);
-        MedicalNode node6 = new MedicalNode(complication,medical.getComplication());
-        medicalNodeRepository.save(node6);
-        MedicalNode node7 = new MedicalNode(symptom,medical.getSymptom());
-        medicalNodeRepository.save(node7);
-        //保存主节点与子节点的关系
-        medicalRelationRepository.save(new MedicalRelation(node,node1,intro));
-        medicalRelationRepository.save(new MedicalRelation(node,node2,cause));
-        medicalRelationRepository.save(new MedicalRelation(node,node3,diagnose));
-        medicalRelationRepository.save(new MedicalRelation(node,node4,cure));
-        medicalRelationRepository.save(new MedicalRelation(node,node5,prevent));
-        medicalRelationRepository.save(new MedicalRelation(node,node6,complication));
-        medicalRelationRepository.save(new MedicalRelation(node,node7,symptom));
+        medicalNodeR.save(node);
+
         //保存子节点的子节点
         for (String s : medical.getIntro_list()){
-            MedicalNode node11 = new MedicalNode(s,s);
-            medicalNodeRepository.save(node11);//保存子子节点
-            medicalRelationRepository.save(new MedicalRelation(node1,node11, baohan));//保存子子关系
+            MedicalNode2 node11 = new MedicalNode2(s,s);
+            medicalNodeR2.save(node11);//保存子子节点
+            medicalRelationR.save(new MedicalNodeRelation(node,node11, intro));//保存子子关系
         }
         for (String s : medical.getCause_list()){
-            MedicalNode node22 = new MedicalNode(s,s);
-            medicalNodeRepository.save(node22);
-            medicalRelationRepository.save(new MedicalRelation(node2,node22, baohan));
+            MedicalNode2 node22 = new MedicalNode2(s,s);
+            medicalNodeR2.save(node22);
+            medicalRelationR.save(new MedicalNodeRelation(node,node22, cause));
         }
         for (String s : medical.getDiagnose_list()){
-            MedicalNode node33 = new MedicalNode(s,s);
-            medicalNodeRepository.save(node33);
-            medicalRelationRepository.save(new MedicalRelation(node3,node33, baohan));
+            MedicalNode2 node33 = new MedicalNode2(s,s);
+            medicalNodeR2.save(node33);
+            medicalRelationR.save(new MedicalNodeRelation(node,node33, diagnose));
         }
         for (String s : medical.getCure_list()){
-            MedicalNode node44 = new MedicalNode(s,s);
-            medicalNodeRepository.save(node44);
-            medicalRelationRepository.save(new MedicalRelation(node4,node44, baohan));
+            MedicalNode2 node44 = new MedicalNode2(s,s);
+            medicalNodeR2.save(node44);
+            medicalRelationR.save(new MedicalNodeRelation(node,node44, cure));
         }
         for (String s : medical.getPrevent_list()){
-            MedicalNode node55 = new MedicalNode(s,s);
-            medicalNodeRepository.save(node55);
-            medicalRelationRepository.save(new MedicalRelation(node5,node55, baohan));
+            MedicalNode2 node55 = new MedicalNode2(s,s);
+            medicalNodeR2.save(node55);
+            medicalRelationR.save(new MedicalNodeRelation(node,node55, prevent));
         }
         for (String s : medical.getComplication_list()){
-            MedicalNode node66 = new MedicalNode(s,s);
-            medicalNodeRepository.save(node66);
-            medicalRelationRepository.save(new MedicalRelation(node6,node66, baohan));
+            MedicalNode2 node66 = new MedicalNode2(s,s);
+            medicalNodeR2.save(node66);
+            medicalRelationR.save(new MedicalNodeRelation(node,node66, complication));
         }
         for (String s : medical.getSymptom_list()){
-            MedicalNode node77 = new MedicalNode(s,s);
-            medicalNodeRepository.save(node77);
-            medicalRelationRepository.save(new MedicalRelation(node7,node77, baohan));
+            MedicalNode2 node77 = new MedicalNode2(s,s);
+            medicalNodeR2.save(node77);
+            medicalRelationR.save(new MedicalNodeRelation(node,node77, symptom));
         }
     }
 

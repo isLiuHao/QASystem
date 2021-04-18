@@ -72,7 +72,6 @@ public class MedicalNodeRepositoryTest {
     private void saveNeo4j(Medical medical) {
         //保存主节点
         MedicalNode node = new MedicalNode(medical.getName(),medical.getPart().toString()+medical.getFamily());
-        node.setMajor(true);//设为主节点
         medicalNodeRepository.save(node);
         //保存子节点们
         MedicalNode node1 = new MedicalNode(intro,medical.getIntro());
