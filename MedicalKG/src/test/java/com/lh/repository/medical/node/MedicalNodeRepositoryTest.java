@@ -53,8 +53,10 @@ public class MedicalNodeRepositoryTest {
     }
     @Test
     public void searchKG(){
-        MedicalNode medicalNode = medicalNodeR.findByName("流行性感冒");
-        System.out.println(medicalNode);
+        List<SymptomMedicalRelation> lists=symptomMRelationR.findSymptomMedicalRelationsByStartNode("流行性感冒");
+        for(SymptomMedicalRelation list:lists){
+            System.out.println(list);
+        }
     }
 
     private void saveNeo4j(Medical medical) {
