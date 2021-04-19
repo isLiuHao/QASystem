@@ -7,16 +7,18 @@ import com.lh.entity.medical.node.SymptomNode;
 import java.util.List;
 
 public interface MedicalNodeService {
-    //通过名字查找
+    //通过名字查找MedicalNode
     MedicalNode findMedicalNodeByName(String name);
 
     //通过MedicalNode名字查找子节点SymptomNode
-    List<SymptomNode> findSymptomNodeByMedicalNodeName(String name);
+    List<SymptomNode> findSymptomNodesByMedicalNodeName(String name);
 
     //通过MedicalNode名字查找子节点CureNode
-    public List<CureNode> findCureNodeByMedicalNodeName(String name);
+    List<CureNode> findCureNodesByMedicalNodeName(String name);
 
     //通过SymptomNode名字查找父节点
-    List<MedicalNode> findBySymptomNodeName(String name);
+    List<MedicalNode> findMedicalNodesBySymptomNodeName(String name);
 
+    //通过CureNode名字查找父节点
+    List<MedicalNode> findMedicalNodesByCureNodeName(String name);
 }

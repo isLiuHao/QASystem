@@ -12,8 +12,11 @@ import java.util.List;
 public interface MedicalNodeRepository extends GraphRepository<MedicalNode> {
     //通过节点名查找
     MedicalNode findByName(String name);
-    //通过SymptomNodes查找
+    //通过SymptomNode查找父节点
     @Query("MATCH (n:medical)-[r:`medical-symptom`]->(m:symptom) WHERE m.name={name} return n")
-    List<MedicalNode> findMedicalNodesBySymptomNodes(@Param("name") String name);
+    List<MedicalNode> findMedicalNodesBySymptomNode(@Param("name") String name);
+    //通过CureNode查找父节点
+    @Query("MATCH (n:medical)-[r:`medical-cure`]->(m:cure) WHERE m.name={name} return n")
+    List<MedicalNode> findMedicalNodesByCureNode(@Param("name") String name);
 
 }

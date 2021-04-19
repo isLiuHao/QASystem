@@ -13,6 +13,6 @@ public class MedicalServiceImpl implements MedicalService {
 
     @Override
     public Medical findMedicalByName(String name) {
-        return medicalRepository.findByName(name);
+        return medicalRepository.findMedicalByName(name);
     }
 }

@@ -43,8 +43,8 @@ public class MedicalNodeRepositoryTest {
     final String examine = "检查";
     @Test
     public void saveKG(){
-        Medical medical = medicalRepository.findByName("流行性感冒");
-        Medical medical1 = medicalRepository.findByName("流行性腮腺炎");
+        Medical medical = medicalRepository.findMedicalByName("流行性感冒");
+        Medical medical1 = medicalRepository.findMedicalByName("流行性腮腺炎");
         saveNeo4j(medical);
         saveNeo4j(medical1);
     }
@@ -55,12 +55,11 @@ public class MedicalNodeRepositoryTest {
         for(SymptomNode symptomNode:medicalNode.getSymptomNodes()){
             System.out.println("======"+symptomNode);
         }
-
     }
     //通过子节点名查询父节点
     @Test
     public void searchBySymptomNodeName(){
-        List<MedicalNode> medicalNodes = medicalNodeR.findMedicalNodesBySymptomNodes("呕吐");
+        List<MedicalNode> medicalNodes = medicalNodeR.findMedicalNodesBySymptomNode("呕吐");
         for(MedicalNode medicalNode:medicalNodes){
             System.out.println("====="+medicalNode);
         }
