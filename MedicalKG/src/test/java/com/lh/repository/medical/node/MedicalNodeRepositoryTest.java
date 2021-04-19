@@ -33,14 +33,8 @@ public class MedicalNodeRepositoryTest {
 
     //节点直接的关系
     final String disease = "疾病";
-    final String intro = "简介";
-    final String cause = "病因";
-    final String diagnose = "诊断";
-    final String cure = "治疗";
-    final String prevent = "预防";
-    final String complication = "并发症";
-    final String symptom = "症状";
-    final String examine = "检查";
+
+    //保存单个数据
     @Test
     public void saveKG(){
         Medical medical = medicalRepository.findMedicalByName("流行性感冒");
@@ -64,6 +58,7 @@ public class MedicalNodeRepositoryTest {
             System.out.println("====="+medicalNode);
         }
     }
+    //数据库保存到neo4j
     private void saveNeo4j(Medical medical) {
         //查看主节点是否存在
         MedicalNode medicalNode = medicalNodeR.findByName(medical.getName());
@@ -89,7 +84,7 @@ public class MedicalNodeRepositoryTest {
         }
         medicalNodeR.save(medicalNode);//保存主节点
     }
-
+    //保存所有数据
     @Test
     public void saveAllKG(){
         int num = 0;//当前第几页
