@@ -1,9 +1,9 @@
 package com.lh.repository.medical.node;
 
 import com.lh.entity.medical.Medical;
+import com.lh.entity.medical.node.CureNode;
 import com.lh.entity.medical.node.MedicalNode;
 import com.lh.entity.medical.node.SymptomNode;
-import com.lh.entity.medical.node.SymptomMedicalRelation;
 import com.lh.repository.medical.MedicalRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -16,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -24,13 +23,13 @@ import java.util.List;
 @SpringBootTest
 public class MedicalNodeRepositoryTest {
     @Autowired
-    MedicalNodeRepository medicalNodeR;//主节点
+    MedicalRepository medicalRepository;//mysql表
     @Autowired
-    SymptomNodeRepository symptomNodeR;//副节点
+    MedicalNodeRepository medicalNodeR;//neo4j主节点
     @Autowired
-    SymptomMedicalRelationRepository symptomMRelationR;
+    SymptomNodeRepository symptomNodeR;//neo4j子节点
     @Autowired
-    MedicalRepository medicalRepository;
+    CureNodeRepository cureNodeR;//neo4j子节点
 
     //节点直接的关系
     final String disease = "疾病";
@@ -40,10 +39,8 @@ public class MedicalNodeRepositoryTest {
     final String cure = "治疗";
     final String prevent = "预防";
     final String complication = "并发症";
-    final String hasSymptom = "拥有症状";
-    final String family = "科室";
-    final String part = "部位";
-
+    final String symptom = "症状";
+    final String examine = "检查";
     @Test
     public void saveKG(){
         Medical medical = medicalRepository.findByName("流行性感冒");
@@ -51,25 +48,47 @@ public class MedicalNodeRepositoryTest {
         saveNeo4j(medical);
         saveNeo4j(medical1);
     }
+    //通过父节点名查询子节点
     @Test
-    public void searchKG(){
+    public void searchByMedicalNodeName(){
         MedicalNode medicalNode = medicalNodeR.findByName("流行性感冒");
-        List<SymptomMedicalRelation> lists=symptomMRelationR.findSymptomMedicalRelationsByStartNode(medicalNode);
-        for(SymptomMedicalRelation list:lists){
-            System.out.println(list.getRelation());
+        for(SymptomNode symptomNode:medicalNode.getSymptomNodes()){
+            System.out.println("======"+symptomNode);
+        }
+
+    }
+    //通过子节点名查询父节点
+    @Test
+    public void searchBySymptomNodeName(){
+        List<MedicalNode> medicalNodes = medicalNodeR.findMedicalNodesBySymptomNodes("呕吐");
+        for(MedicalNode medicalNode:medicalNodes){
+            System.out.println("====="+medicalNode);
         }
     }
-
     private void saveNeo4j(Medical medical) {
-        //保存主节点
-        MedicalNode medicalNode = new MedicalNode(medical.getName(),disease);
-        medicalNodeR.save(medicalNode);
-        //保存子节点和关系
-        for (String s : medical.getSymptom_list()){
-            SymptomNode introNode = new SymptomNode(s);
-            symptomNodeR.save(introNode);//保存子节点
-            symptomMRelationR.save(new SymptomMedicalRelation(medicalNode, introNode, hasSymptom));//保存关系
+        //查看主节点是否存在
+        MedicalNode medicalNode = medicalNodeR.findByName(medical.getName());
+        if(medicalNode==null){
+            medicalNode = new MedicalNode(medical.getName(),disease);
         }
+        //查看子节点是否存在
+        for (String s : medical.getSymptom_list()){
+            SymptomNode symptomNode = symptomNodeR.findByName(s);
+            if(symptomNode==null){
+                symptomNode = new SymptomNode(s);
+                symptomNodeR.save(symptomNode);
+            }
+            medicalNode.addSymptom(symptomNode);
+        }
+        for (String s : medical.getCure_list()){
+            CureNode cureNode = cureNodeR.findByName(s);
+            if(cureNode==null){
+                cureNode = new CureNode(s);
+                cureNodeR.save(cureNode);
+            }
+            medicalNode.addCure(cureNode);
+        }
+        medicalNodeR.save(medicalNode);//保存主节点
     }
 
     @Test

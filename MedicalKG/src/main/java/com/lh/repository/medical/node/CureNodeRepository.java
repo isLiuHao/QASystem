@@ -1,14 +1,12 @@
 package com.lh.repository.medical.node;
 
+import com.lh.entity.medical.node.CureNode;
 import com.lh.entity.medical.node.SymptomNode;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface SymptomNodeRepository extends GraphRepository<SymptomNode> {
+public interface CureNodeRepository extends GraphRepository<CureNode> {
     //通过节点名查找
-    SymptomNode findByName(String name);
-
+    CureNode findByName(String name);
 }

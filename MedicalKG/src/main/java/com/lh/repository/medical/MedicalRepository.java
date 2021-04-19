@@ -13,8 +13,6 @@ public interface MedicalRepository extends JpaRepository<Medical,Long> {
     @Query(value = "SELECT id,name FROM MEDICAL Limit ?1,?2 ", nativeQuery = true)
     List<Medical> findAllName(int start, int num);
 
-    boolean existsMedicalByName(String name);
-
     //根据名称查询
     Medical findByName(String name);
 
