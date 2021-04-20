@@ -5,6 +5,7 @@ import com.lh.entity.medical.node.CureNode;
 import com.lh.entity.medical.node.MedicalNode;
 import com.lh.entity.medical.node.SymptomNode;
 import com.lh.service.MedicalNodeService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

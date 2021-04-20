@@ -3,6 +3,7 @@ package com.lh.controller;
 import com.lh.commonUtils.R;
 import com.lh.entity.medical.node.SymptomNode;
 import com.lh.service.SymptomNodeService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

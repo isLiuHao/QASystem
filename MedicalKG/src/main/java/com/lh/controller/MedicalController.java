@@ -3,6 +3,7 @@ package com.lh.controller;
 import com.lh.commonUtils.R;
 import com.lh.entity.medical.Medical;
 import com.lh.service.MedicalService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class MedicalController {
     @ApiOperation(value="保存单个数据到neo4j")
     @PostMapping("/saveOneKG")
     public R saveOneKG(Medical medical){
-        medicalService.saveOneKG(medical);
-        return R.ok();
+        //medicalService.saveOneKG(medical);
+        return R.error().message("未开放接口");
     }
 }
