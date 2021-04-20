@@ -1,4 +1,11 @@
+#端口号
+server:
+  port: 8001
 spring:
+  #服务名
+  application:
+    name: Medical-KG
+  #mysql
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://172.18.56.100:3306/MedicalQS?useUnicode=true&characterEncoding=utf-8&useSSL=false

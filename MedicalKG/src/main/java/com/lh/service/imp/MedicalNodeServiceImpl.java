@@ -45,6 +45,4 @@ public class MedicalNodeServiceImpl implements MedicalNodeService {
         return medicalNodeR.findMedicalNodesByCureNode(name);
     }
 
-
-
 }

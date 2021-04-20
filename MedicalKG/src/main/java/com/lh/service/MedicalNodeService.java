@@ -3,7 +3,6 @@ package com.lh.service;
 import com.lh.entity.medical.node.CureNode;
 import com.lh.entity.medical.node.MedicalNode;
 import com.lh.entity.medical.node.SymptomNode;
-
 import java.util.List;
 
 public interface MedicalNodeService {
@@ -21,4 +20,6 @@ public interface MedicalNodeService {
 
     //通过CureNode名字查找父节点
     List<MedicalNode> findMedicalNodesByCureNodeName(String name);
+
+
 }

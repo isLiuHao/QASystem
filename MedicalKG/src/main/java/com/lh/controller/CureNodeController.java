@@ -1,9 +1,9 @@
 package com.lh.controller;
 
+import com.lh.commonUtils.R;
 import com.lh.entity.medical.node.CureNode;
-import com.lh.entity.medical.node.SymptomNode;
 import com.lh.service.CureNodeService;
-import com.lh.service.SymptomNodeService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,9 +17,14 @@ public class CureNodeController {
     @Autowired
     private CureNodeService cureNodeService;
     //通过名字查找cureNode
+    @ApiOperation(value="通过名字查找cureNode")
     @GetMapping("/findCureNodeByName/{name}")
-    public CureNode findCureNodeByName(@PathVariable("name") String name){
-        return cureNodeService.findCureNodeByName(name);
+    public R findCureNodeByName(@PathVariable("name") String name){
+        CureNode cureNode=cureNodeService.findCureNodeByName(name);
+        if(cureNode!=null){
+            return R.ok().data("cureNode",cureNode);
+        }
+        else return R.error();
     }
 
 }
