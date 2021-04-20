@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 //对neo4j数据库操作
 @RestController
-@RequestMapping("/MedicalNode")
+@RequestMapping("/Medical")
 public class CureNodeController {
     @Autowired
     private CureNodeService cureNodeService;

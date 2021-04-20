@@ -88,17 +88,17 @@ public class MedicalNodeRepositoryTest {
     @Test
     public void saveAllKG(){
         int num = 0;//当前第几页
-        int size = 1000;//每页1000条
+        int size = 100;//每页100条
         boolean s = false;
-        Sort sort = new Sort(Sort.Direction.DESC,"id");//降序
+        Sort sort = new Sort(Sort.Direction.ASC,"id");//生序
         Pageable pageable = new PageRequest(num++,size,sort);
         Page<Medical> medicalPage = medicalRepository.findAll(pageable);
         List<Medical> content = medicalPage.getContent();
         //先保存第一页
-        log.warn("保存第"+num+"页到neo4j数据库（每页1000条）");
+        log.warn("保存第"+num+"页到neo4j数据库（每页"+size+"条）");
         int i=1;
         for (Medical medical : content){
-            log.warn("保存第"+num+"页,第"+i+"条，到neo4j数据库（每页1000条）");
+            log.warn("保存第"+num+"页,第"+i+"条，到neo4j数据库（每页"+size+"条）");
             saveNeo4j(medical);
             i++;
         }
@@ -108,7 +108,7 @@ public class MedicalNodeRepositoryTest {
             medicalPage = medicalRepository.findAll(pageable);
             int j=1;
             for (Medical medical : medicalPage.getContent()){
-                log.warn("保存第"+num+"页,第"+j+"条，到neo4j数据库（每页1000条）");
+                log.warn("保存第"+num+"页,第"+j+"条，到neo4j数据库（每页"+size+"条）");
                 saveNeo4j(medical);
                 j++;
             }

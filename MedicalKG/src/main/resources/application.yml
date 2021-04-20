@@ -12,7 +12,7 @@ spring:
     username: root
     password: 123456
   jpa:
-    show-sql: true #控制台是否显示sql语句
+    show-sql: false #控制台是否显示sql语句
     hibernate:
       ddl-auto: update #更新创建表结构
     properties:
