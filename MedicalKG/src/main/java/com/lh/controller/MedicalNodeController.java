@@ -5,6 +5,7 @@ import com.lh.entity.medical.node.CureNode;
 import com.lh.entity.medical.node.MedicalNode;
 import com.lh.entity.medical.node.SymptomNode;
 import com.lh.service.MedicalNodeService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class MedicalNodeController {
     @Autowired
     private MedicalNodeService medicalNodeService;
 
-    //通过名字查找MedicalNode
+    @ApiOperation(value="通过名字查找MedicalNode")
     @GetMapping("/findMedicalNodeByName/{name}")
     public R findMedicalNodeByName(@PathVariable("name") String name){
         MedicalNode medicalNode = medicalNodeService.findMedicalNodeByName(name);
@@ -28,7 +29,7 @@ public class MedicalNodeController {
         else return R.error();
     }
 
-    //通过父节点名查询子节点SymptomNode名字
+    @ApiOperation(value="通过父节点名查询子节点SymptomNode名字")
     @GetMapping("/findSymptomNodesByMedicalNodeName/{name}")
     public R findSymptomNodesByMedicalNodeName(@PathVariable("name") String name){
         List<SymptomNode> symptomNodes = new ArrayList<>();
@@ -38,7 +39,7 @@ public class MedicalNodeController {
         }
         else return R.error();
     }
-    //通过父节点名查询子节点CureNode名字
+    @ApiOperation(value="通过父节点名查询子节点CureNode名字")
     @GetMapping("/findCureNodesByMedicalNodeName/{name}")
     public R findCureNodesByMedicalNodeName(@PathVariable("name") String name){
         List<CureNode> cureNodes = new ArrayList<>();
@@ -49,7 +50,8 @@ public class MedicalNodeController {
         else return R.error();
     }
 
-    //通过SymptomNode名字查找父节点
+
+    @ApiOperation(value="通过SymptomNode名字查找父节点")
     @GetMapping("/findBySymptomNodeName/{name}")
     public R findBySymptomNodeName(@PathVariable("name") String name){
         List<MedicalNode> medicalNodes = new ArrayList<>();
@@ -59,7 +61,8 @@ public class MedicalNodeController {
         }
         else return R.error();
     }
-    //通过CureNode名字查找父节点
+
+    @ApiOperation(value="通过CureNode名字查找父节点")
     @GetMapping("/findByCureNodeName/{name}")
     public R findByCureNodeName(@PathVariable("name") String name){
         List<MedicalNode> medicalNodes = new ArrayList<>();

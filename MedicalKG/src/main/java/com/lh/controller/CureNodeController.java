@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CureNodeController {
     @Autowired
     private CureNodeService cureNodeService;
-    //通过名字查找cureNode
+
     @ApiOperation(value="通过名字查找cureNode")
     @GetMapping("/findCureNodeByName/{name}")
     public R findCureNodeByName(@PathVariable("name") String name){
