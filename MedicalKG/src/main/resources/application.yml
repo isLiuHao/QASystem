@@ -38,6 +38,6 @@ spring:
 logging:
   path: QSlogs\MedicalKG
   level:
-    root: info
+    root: error
     com.lh: info
 

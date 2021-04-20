@@ -18,6 +18,6 @@ public interface MedicalNodeRepository extends GraphRepository<MedicalNode> {
     //通过CureNode查找父节点
     @Query("MATCH (n:medical)-[r:`medical-cure`]->(m:cure) WHERE m.name={name} return n")
     List<MedicalNode> findMedicalNodesByCureNode(@Param("name") String name);
-    //删除所有节点
-    void deleteAll();
+    //查找全部
+    List<MedicalNode> findAll();
 }

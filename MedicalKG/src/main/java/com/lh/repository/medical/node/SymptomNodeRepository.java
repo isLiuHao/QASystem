@@ -10,5 +10,6 @@ import java.util.List;
 public interface SymptomNodeRepository extends GraphRepository<SymptomNode> {
     //通过节点名查找
     SymptomNode findByName(String name);
-
+    //查找全部
+    List<SymptomNode> findAll();
 }

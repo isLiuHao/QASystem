@@ -63,7 +63,6 @@ public class MedicalNodeController {
         }
         else return R.error();
     }
-
     @ApiOperation(value="通过CureNode名字查找父节点")
     @GetMapping("/findByCureNodeName/{name}")
     public R findByCureNodeName(@PathVariable("name") String name){
@@ -75,25 +74,12 @@ public class MedicalNodeController {
         else return R.error();
     }
 
+
     @ApiOperation(value="保存单个数据到neo4j")
     @PostMapping("/saveOneKG")
     public R saveOneKG(Medical medical){
         medicalNodeService.saveOneKG(medical);
         return R.ok();
     }
-    @ApiOperation(value="保存所有数据库数据到neo4j")
-    @PostMapping("/saveAllKG")
-    public R saveAllKG(){
-        medicalNodeService.saveAllKG();
-        return R.ok();
-    }
-    @ApiOperation(value="删除neo4j所有节点关系")
-    @PostMapping("/deleteAllKG")
-    public R deleteAllKG(){
-        boolean flag = medicalNodeService.deleteAllKG();
-        if(flag){
-            return R.ok().message("删除全部节点成功");
-        }else
-            return R.error().message("删除失败");
-    }
+
 }
