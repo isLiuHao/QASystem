@@ -69,7 +69,6 @@ public class MedicalNodeServiceImpl implements MedicalNodeService {
     public void saveAllKG(){
         int num = 0;//当前第几页
         int size = 100;//每页100条
-        boolean s = false;
         Sort sort = new Sort(Sort.Direction.ASC,"id");//生序
         Pageable pageable = new PageRequest(num++,size,sort);
         Page<Medical> medicalPage = medicalRepository.findAll(pageable);
