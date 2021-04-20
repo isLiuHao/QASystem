@@ -18,7 +18,7 @@ public class CureNodeController {
     private CureNodeService cureNodeService;
     //通过名字查找cureNode
     @GetMapping("/findCureNodeByName/{name}")
-    public CureNode findCureNodeByName(@PathVariable String name){
+    public CureNode findCureNodeByName(@PathVariable("name") String name){
         return cureNodeService.findCureNodeByName(name);
     }
 

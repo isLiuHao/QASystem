@@ -22,7 +22,7 @@ public class SymptomNodeController {
     private SymptomNodeService symptomNodeService;
     //通过名字查找symptomNode
     @GetMapping("/findSymptomNodeByName/{name}")
-    public SymptomNode findSymptomNodeByName(@PathVariable String name){
+    public SymptomNode findSymptomNodeByName(@PathVariable("name") String name){
         return symptomNodeService.findSymptomNodeByName(name);
     }
 

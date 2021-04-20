@@ -22,29 +22,29 @@ public class MedicalNodeController {
     private MedicalNodeService medicalNodeService;
     //通过名字查找MedicalNode
     @GetMapping("/findMedicalNodeByName/{name}")
-    public MedicalNode findMedicalNodeByName(@PathVariable String name){
+    public MedicalNode findMedicalNodeByName(@PathVariable("name") String name){
         return medicalNodeService.findMedicalNodeByName(name);
     }
 
     //通过父节点名查询子节点SymptomNode名字
     @GetMapping("/findSymptomNodesByMedicalNodeName/{name}")
-    public List<SymptomNode> findSymptomNodesByMedicalNodeName(@PathVariable String name){
+    public List<SymptomNode> findSymptomNodesByMedicalNodeName(@PathVariable("name") String name){
         return medicalNodeService.findSymptomNodesByMedicalNodeName(name);
     }
     //通过父节点名查询子节点CureNode名字
     @GetMapping("/findCureNodesByMedicalNodeName/{name}")
-    public List<CureNode> findCureNodesByMedicalNodeName(@PathVariable String name){
+    public List<CureNode> findCureNodesByMedicalNodeName(@PathVariable("name") String name){
         return medicalNodeService.findCureNodesByMedicalNodeName(name);
     }
 
     //通过SymptomNode名字查找父节点
     @GetMapping("/findBySymptomNodeName/{name}")
-    public List<MedicalNode> findBySymptomNodeName(@PathVariable String name){
+    public List<MedicalNode> findBySymptomNodeName(@PathVariable("name") String name){
         return medicalNodeService.findMedicalNodesBySymptomNodeName(name);
     }
     //通过CureNode名字查找父节点
     @GetMapping("/findByCureNodeName/{name}")
-    public List<MedicalNode> findByCureNodeName(@PathVariable String name){
+    public List<MedicalNode> findByCureNodeName(@PathVariable("name") String name){
         return medicalNodeService.findMedicalNodesByCureNodeName(name);
     }
 
